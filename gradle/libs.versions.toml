@@ -1,0 +1,28 @@
+[versions]
+agp = "9.0.0"
+kotlin = "2.2.0"
+coreKtx = "1.17.0"
+appcompat = "1.7.1"
+composeBom = "2025.08.00"
+coil = "2.7.0"
+jlatexmath-android = "0.2.0"
+commonmark = "0.27.0"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+jlatexmath-android = { group = "ru.noties", name = "jlatexmath-android", version.ref = "jlatexmath-android" }
+jlatexmath-android-font-cyrillic = { group = "ru.noties", name = "jlatexmath-android-font-cyrillic", version.ref = "jlatexmath-android" }
+jlatexmath-android-font-greek = { group = "ru.noties", name = "jlatexmath-android-font-greek", version.ref = "jlatexmath-android" }
+commonmark-core = { module = "org.commonmark:commonmark", version.ref = "commonmark" }
+commonmark-gfm-tables = { module = "org.commonmark:commonmark-ext-gfm-tables", version.ref = "commonmark" }
+commonmark-gfm-strikethrough = { module = "org.commonmark:commonmark-ext-gfm-strikethrough", version.ref = "commonmark" }
+
+[plugins]
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
