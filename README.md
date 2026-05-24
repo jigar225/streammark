@@ -27,42 +27,91 @@ Your app must already use **Jetpack Compose** and a **Compose BOM** aligned with
 
 ## Installation
 
-### Option A — Git submodule / local module (recommended until Maven is live)
+Use it like **CommonMark** or **Coil** — add a version in `libs.versions.toml` and one `implementation` line.
 
-1. Add this repo as a submodule or copy the folder into your project.
-2. In `settings.gradle.kts`:
+**Maven coordinates:** `io.edutor:streammark:1.0.0`  
+**Repository:** [GitHub Packages](https://github.com/jigar225/streammark/packages) (`jigar225/streammark`)
+
+> GitHub Packages needs a **read token** to download (even for public repos). Put credentials in `~/.gradle/gradle.properties` once per machine (see below).
+
+### 1. Repository — `settings.gradle.kts`
+
+Inside `dependencyResolutionManagement { repositories { ... } }`:
 
 ```kotlin
-include(":streammark")
-```
-
-3. In your app `build.gradle.kts`:
-
-```kotlin
-dependencies {
-    implementation(project(":streammark"))
+maven {
+    url = uri("https://maven.pkg.github.com/jigar225/streammark")
+    credentials {
+        username = providers.gradleProperty("gpr.user").get()
+        password = providers.gradleProperty("gpr.key").get()
+    }
 }
 ```
 
-4. Enable Compose in the app module if not already enabled.
+In **`~/.gradle/gradle.properties`** (your Mac, not in the app repo):
 
-### Option B — Maven (after you publish)
+```properties
+gpr.user=YOUR_GITHUB_USERNAME
+gpr.key=ghp_xxxx   # PAT with read:packages
+```
 
-Coordinates (configured in `build.gradle.kts`):
+### 2. Version catalog — `gradle/libs.versions.toml`
+
+```toml
+[versions]
+streammark = "1.0.0"
+
+[libraries]
+streammark = { group = "io.edutor", name = "streammark", version.ref = "streammark" }
+```
+
+### 3. App module — `app/build.gradle.kts`
+
+```kotlin
+dependencies {
+    implementation(libs.streammark)
+    // Your app still needs Compose BOM + UI (StreamMark does not add Material3 for you)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.material3)
+}
+```
+
+**Without version catalog:**
 
 ```kotlin
 implementation("io.edutor:streammark:1.0.0")
 ```
 
-Publish locally to test:
+### Publish a new version (maintainers)
 
-```bash
-./gradlew :publishReleasePublicationToMavenLocal
+1. Create **`github.properties`** in project root (already in `.gitignore` — **never commit**):
+
+```properties
+gpr.user=YOUR_GITHUB_USERNAME
+gpr.key=ghp_xxxx
 ```
 
-Then add `mavenLocal()` to your app's repositories.
+Use a GitHub PAT with **write:packages**.
 
-For **GitHub Packages** or **Maven Central**, configure a `publishing.repositories` block in `build.gradle.kts` with your credentials and repository URL.
+2. Bump `version` in `build.gradle.kts`  
+3. Run:
+
+```bash
+./gradlew assembleRelease publishReleasePublicationToGitHubPackagesRepository
+```
+
+4. Git tag + push, e.g. `v1.0.1`
+
+### Option B — Clone as Gradle module (contributors / offline)
+
+```kotlin
+// settings.gradle.kts
+include(":streammark")
+// point projectDir to cloned repo if needed
+
+// app/build.gradle.kts
+implementation(project(":streammark"))
+```
 
 ## Quick start
 
