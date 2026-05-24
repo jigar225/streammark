@@ -4,6 +4,9 @@
 
 StreamMark is a Jetpack Compose library that renders markdown while tokens stream in — built for AI chat UIs. It supports LaTeX, GFM tables and strikethrough, styled HTML boxes, images, and incremental parsing without waiting for the full response.
 
+<p align="center">
+</p>
+
 | | |
 |---|---|
 | **Package** | `io.edutor.streammark` |
@@ -20,6 +23,15 @@ StreamMark is a Jetpack Compose library that renders markdown while tokens strea
 - Images via Coil
 - Custom `segmentRenderer` for app-specific segments (mindmap, charts, selection actions)
 - Legacy Android `TextView` path (`MarkdownTextRenderer`, `MarkdownStyle`)
+- Screenshots with default configurations:
+
+
+<p align="center">
+  <img src="art/streammark-render-html-sample-1.jpeg" alt="Styled HTML boxes with headings, bullets, and inline LaTeX" width="240" />
+  <img src="art/streammark-render-latex-sample-1.jpeg" alt="Step-by-step calculus explanation with block and inline LaTeX" width="240" />
+  <img src="art/streammark-render-latex-sample-2.jpeg" alt="Final answer section with combined integrals and summary" width="240" />
+    <img src="art/streammark-render-html-sample-2.jpeg" alt="StreamMark rendering an AI chat reply with LaTeX and styled HTML concept cards" width="240" />
+</p>
 
 ## Requirements
 
